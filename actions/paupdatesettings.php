@@ -76,6 +76,8 @@ class PaUpdateForm extends Form
 			$note = '<p>Seems you have made changes to this installation. So we cannot check for updates.</p>';
 		}elseif (strpos($c, 'behind') !== false) {
 			$note = "<p>There is a new update! Please check <a href=\"https://git.postactiv.com/postActiv/postActiv\">here for update info.</a></p>";
+			$c2 = htmlspecialchars(shell_exec("git fetch && git diff origin/master"));
+			$note .= "<p>Otherwise, here are current changes made:<br/><textarea style=\"width:100%;\" readonly>".$c2."</textarea></p>";
 		} elseif (strpos($c, 'up-to-date') !== false) {
 			$note =  '<p><b>postActiv is up-to-date!</b></p>';
 		} else {
