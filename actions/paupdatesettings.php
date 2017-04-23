@@ -72,10 +72,11 @@ class PaUpdateForm extends Form
     {
     	$note = null;
     	$c = htmlspecialchars(shell_exec("git fetch && git status"));
+    	$c3 = htmlspecialchars(shell_exec("git config --get remote.origin.url"));
 		if (strpos($c, 'no changes added to commit') !== false) {
 			$note = '<p>Seems you have made changes to this installation. So we cannot check for updates.</p>';
 		}elseif (strpos($c, 'behind') !== false) {
-			$note = "<p>There is a new update! Please check <a href=\"https://git.postactiv.com/postActiv/postActiv\">here for update info.</a></p>";
+			$note = "<p>There is a new update! Please check <a href=\"".$c3."\">here for update info.</a></p>";
 			$c2 = htmlspecialchars(shell_exec("git fetch && git diff origin/master"));
 			$note .= "<p>Otherwise, here are current changes made:<br/><textarea style=\"width:100%;\" readonly>".$c2."</textarea></p>";
 		} elseif (strpos($c, 'up-to-date') !== false) {
